@@ -17,10 +17,11 @@ def home(request):
 # función utilizada en el buscador.
 def search(request):
     name = request.POST.get('query', '')
-
+    images = services.getAllImages()
     # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
     if (name != ''):
-        images = []
+        images = [img for img in images if name in img.name.lower()]
+
         favourite_list = []
 
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
