@@ -33,10 +33,11 @@ def filter_by_type(request):
     type = request.POST.get('type', '')
 
     if type != '':
-        images = [] # debe traer un listado filtrado de imágenes, segun si es o contiene ese tipo.
+        images = services.getAllImages()
+        filtroTipo = [img for img in images if type in [tipo.lower() for tipo in img.types]]
         favourite_list = []
 
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+        return render(request, 'home.html', { 'images': filtroTipo, 'favourite_list': favourite_list })
     else:
         return redirect('home')
 

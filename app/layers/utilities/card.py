@@ -1,6 +1,6 @@
 class Card:
     def __init__(self, name, height, base, weight, image, types, user=None, id=None):
-        self.name = name  # Nombre del pokemon
+        self.name = name.capitalize()  # Nombre del pokemon
         self.height = height  # ALTURA
         self.weight = weight  # PESO
         self.base = base  # NIVEL BASE
