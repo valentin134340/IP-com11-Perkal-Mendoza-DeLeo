@@ -44,21 +44,15 @@ def filter_by_type(request):
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):
-    favourites = services.getFavourites(request.user)
-    return render(request, 'favourites.html', { 'favourites': favourites })
+    pass
 
 @login_required
 def saveFavourite(request):
-    images = services.getAllImages()
-    selected = next((img for img in images if img.id == id), None)
-    if selected and not services.is_favourite(request.user, id):
-        services.add_favourite(request.user, selected)
-    return redirect('home')
+    pass
 
 @login_required
 def deleteFavourite(request):
-    services.remove_favourite(id, request.user)
-    return redirect('home')
+    pass
 
 @login_required
 def exit(request):
