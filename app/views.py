@@ -10,37 +10,38 @@ def index_page(request):
 def home(request):
     images = services.getAllImages()
     favourite_list = []
-
+    if request.user.is_authenticated:
+        favourite_list = services.getAllFavourites(request)
+        # Solo los nombres para comparar en el template
+        favourite_list = [fav.name for fav in favourite_list]
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
-# función utilizada en el buscador.
 def search(request):
     name = request.POST.get('query', '')
     images = services.getAllImages()
-    # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
-    if (name != ''):
-        images = [img for img in images if name in img.name.lower()]
-
+    if name != '':
+        images = [img for img in images if name.lower() in img.name.lower()]
         favourite_list = []
-
+        if request.user.is_authenticated:
+            favourite_list = services.getAllFavourites(request)
+            favourite_list = [fav.name for fav in favourite_list]
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
         return redirect('home')
 
-# función utilizada para filtrar por el tipo del Pokemon
 def filter_by_type(request):
     type = request.POST.get('type', '')
-
     if type != '':
         images = services.getAllImages()
         filtroTipo = [img for img in images if type in [tipo.lower() for tipo in img.types]]
         favourite_list = []
-
+        if request.user.is_authenticated:
+            favourite_list = services.getAllFavourites(request)
+            favourite_list = [fav.name for fav in favourite_list]
         return render(request, 'home.html', { 'images': filtroTipo, 'favourite_list': favourite_list })
     else:
         return redirect('home')
 
-# Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):
     favourite_list = services.getAllFavourites(request)

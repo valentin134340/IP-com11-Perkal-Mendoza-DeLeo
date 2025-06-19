@@ -7,13 +7,13 @@ from app.models import Favourite
 def save_favourite(fav):
     try:
         fav = Favourite.objects.create(
-            name=fav.name,  # Nombre del personaje
+            name=fav.name,
             id=fav.id,
-            types=fav.types,  # tipos
-            height=fav.height,  # altura
-            weight=fav.weight,  # peso
-            image=fav.image,  # Imagen
-            user=fav.user  # Usuario autenticado
+            types=str(fav.types),  # Guardar como string
+            height=fav.height,
+            weight=fav.weight,
+            image=fav.image,
+            user=fav.user
         )
         return fav
     except IntegrityError as e:
