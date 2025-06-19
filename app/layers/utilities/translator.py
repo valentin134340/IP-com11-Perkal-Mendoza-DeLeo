@@ -18,28 +18,19 @@ def fromRequestIntoCard(poke_data):
 # recupera los tipos del JSON
 def getTypes(poke_data):
     types = []
-    for type in poke_data.get('types', []):
+    for type in poke_data.get('types'):
         t = safe_get(type, 'type','name' )
         types.append(t)
     return types
 
 # Usado cuando la información viene del template, para transformarla en una Card antes de guardarla en la base de datos.
 def fromTemplateIntoCard(templ): 
-    # templ es un request, los tipos pueden venir como string, hay que convertirlos a lista si es necesario
-    types = templ.POST.get("types")
-    if isinstance(types, str) and types.startswith("["):
-        try:
-            types = ast.literal_eval(types)
-        except Exception:
-            types = [types]
-    elif isinstance(types, str):
-        types = [types]
     card = Card(
         name=templ.POST.get("name"),
         id=templ.POST.get("id"),
         height=templ.POST.get("height"),
         weight=templ.POST.get("weight"),
-        types=types,
+        types=templ.POST.get("types"),
         base=templ.POST.get("base"),
         image=templ.POST.get("image")
     )
@@ -48,12 +39,7 @@ def fromTemplateIntoCard(templ):
 
 # Cuando la información viene de la base de datos, para transformarla en una Card antes de mostrarla.
 def fromRepositoryIntoCard(repo_dict):
-    types_list = repo_dict.get('types')
-    if isinstance(types_list, str):
-        try:
-            types_list = ast.literal_eval(types_list)
-        except Exception:
-            types_list = [types_list]
+    types_list = ast.literal_eval(repo_dict['types'])
     return Card(
         id=repo_dict.get('id'),
         name=repo_dict.get('name'),
