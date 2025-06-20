@@ -65,7 +65,7 @@ def saveFavourite(request):
 def deleteFavourite(request):
     if request.method == 'POST':
         services.deleteFavourite(request)
-    return redirect('get-favourites')
+    return redirect('favourites')
 
 @login_required
 def exit(request):
