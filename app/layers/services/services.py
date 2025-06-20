@@ -5,6 +5,7 @@ from ...config import config
 from ..persistence import repositories
 from ..utilities import translator
 from django.contrib.auth import get_user
+from app.models import Favourite
 
 # función que devuelve un listado de cards. Cada card representa una imagen de la API de Pokemon
 def getAllImages():
@@ -36,9 +37,11 @@ def filterByType(type_filter):
 
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):
-    fav = translator.fromTemplateIntoCard(request) # transformamos un request en una Card (ver translator.py)
-    fav.user = get_user(request) # le asignamos el usuario correspondiente.
-
+    fav = translator.fromTemplateIntoCard(request)
+    fav.user = get_user(request)
+    # Verifica si ya existe ese favorito para ese usuario
+    if Favourite.objects.filter(user=fav.user, name=fav.name).exists():
+        return None  # O puedes devolver un mensaje si lo deseas
     return repositories.save_favourite(fav) # lo guardamos en la BD.
 
 # usados desde el template 'favourites.html'
