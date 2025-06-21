@@ -1,7 +1,16 @@
 body {
-    color: #566787;
-    background: #f5f5f5;
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  color: #566787;
+  background: #f5f5f5;
+}
+
+.pokemon-name {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  font-size: 2.2rem;
+  color: black;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #ccc;
 }
 
 .table-responsive {
@@ -140,3 +149,4 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+

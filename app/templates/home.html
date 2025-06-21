@@ -55,7 +55,7 @@
 
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h3 class="card-title">{{ img.name }} #{{ img.id }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Master Ball"></h3>
+                            <span class="pokemon-name">{{ img.name }}</span> #{{ img.id }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Master Ball"></h3>
                                 <div class="mb-2">
                                     {% for poketype in img.types %}
                                         {% if poketype == 'fire' %}
@@ -87,11 +87,11 @@
                                                 {{ poketype|title }}
                                             </span>
                                         {% elif poketype == 'electric' %}
-                                            <span style="background-color: #F8D030; color: black; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                            <span style="background-color: #F8D030; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
                                                 {{ poketype|title }}
                                             </span>
                                         {% elif poketype == 'ground' %}
-                                            <span style="background-color: #E0C068; color: black; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                            <span style="background-color: #E0C068; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
                                                 {{ poketype|title }}
                                             </span>
                                         {% else %}
