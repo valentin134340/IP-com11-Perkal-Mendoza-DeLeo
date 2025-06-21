@@ -56,14 +56,51 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h3 class="card-title">{{ img.name }} #{{ img.id }} <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Master Ball"></h3>
-                            <p class="card-text">
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <div class="mb-2">
                                     {% for poketype in img.types %}
-                                    <strong><em>{{poketype}}</em></strong>
-                                    {% endfor %} 
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        {% if poketype == 'fire' %}
+                                            <span style="background-color: #F08030; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'water' %}
+                                            <span style="background-color: #6890F0; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'grass' %}
+                                            <span style="background-color: #78C850; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'poison' %}
+                                            <span style="background-color: #A040A0; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'bug' %}
+                                            <span style="background-color: #A8B820; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'flying' %}
+                                            <span style="background-color: #A890F0; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'normal' %}
+                                            <span style="background-color: #A8A878; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'electric' %}
+                                            <span style="background-color: #F8D030; color: black; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% elif poketype == 'ground' %}
+                                            <span style="background-color: #E0C068; color: black; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% else %}
+                                            <span style="background-color: gray; color: white; padding: 4px 8px; border-radius: 8px; margin-right: 4px;">
+                                                {{ poketype|title }}
+                                            </span>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
-                            </p>
                             <p class="card-text"><small class="text-body-secondary">Altura: {{ img.height }}</small></p>
                             <p class="card-text"><small class="text-body-secondary">Peso: {{ img.weight }}</small></p>
                             <p class="card-text"><small class="text-body-secondary">Nivel de experiencia base: {{ img.base }}</small></p>
