@@ -1,13 +1,13 @@
 {% extends 'header.html' %} {% block content %}
 <main>
-    <h1 class="text-center">Buscador de Pokemon</h1>
+    <h1 class="text-center" style="color: white; font-size: 5rem; -webkit-text-stroke: 1px black; text-shadow: 2px 2px 4px black; font-weight;">Buscador de Pokemon</h1>
 
     <div class="d-flex justify-content-center" style="margin-bottom: 1%">
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
             {% csrf_token %}
             <input class="form-control me-2" type="search" name="query" placeholder="Pikachu, Charizard, Ditto" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <button class="btn btn-outline-success" type="submit">🔍</button>
         </form>
     </div>
 
@@ -55,7 +55,7 @@
 
                     <div class="col-md-8">
                         <div class="card-body">
-                            <span class="pokemon-name">{{ img.name }} #{{ img.id }} </span> <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Master Ball"></h3>
+                            <span class="pokemon-name"></strong>{{ img.name }}</strong> #{{ img.id }} </span> <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Master Ball"></h3>
                                 <div class="mb-2">
                                     {% for poketype in img.types %}
                                         {% if poketype == 'fire' %}
@@ -101,9 +101,11 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                            <p class="card-text"><small class="text-body-secondary">Altura: {{ img.height }}</small></p>
-                            <p class="card-text"><small class="text-body-secondary">Peso: {{ img.weight }}</small></p>
-                            <p class="card-text"><small class="text-body-secondary">Nivel de experiencia base: {{ img.base }}</small></p>
+                        <span class="pokemon-stats">
+                            <p class="card-text"><small class="text-body-secondary"><strong>Altura:</strong> {{ img.height }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary"><strong>Peso:</strong> {{ img.weight }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary"><strong>Nivel de experiencia base:</strong> {{ img.base }}</small></p>
+                        </span>
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class="card-footer text-center">
