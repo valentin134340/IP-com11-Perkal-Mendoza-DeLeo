@@ -11,10 +11,13 @@ def index_page(request):
 def home(request):
     images = services.getAllImages()
     favourite_list = []
+
     if request.user.is_authenticated:
         favourite_list = services.getAllFavourites(request)
-        # Solo los nombres para comparar en el template
-        favourite_list = [fav.name for fav in favourite_list]
+        nombres_fav = []
+        for fav in favourite_list: 
+            nombres_fav.append(fav.name)
+        favourite_list = nombres_fav
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
@@ -24,12 +27,21 @@ def search(request):
     images = services.getAllImages()
     # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
     if (name != ''):
-        images = [img for img in images if name in img.name.lower()]
+        filtered_images = []
+        name = name.lower()
+        for img in images:
+            if name in img.name.lower():
+                filtered_images.append(img)
+        images = filtered_images
 
         favourite_list = []
         if request.user.is_authenticated:
             favourite_list = services.getAllFavourites(request)
-            favourite_list = [fav.name for fav in favourite_list]
+            nombres_fav = []
+            for fav in favourite_list:
+                nombres_fav.append(fav.name)
+            favourite_list = nombres_fav
+
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
         return redirect('home')
@@ -40,11 +52,22 @@ def filter_by_type(request):
 
     if type != '':
         images = services.getAllImages()
-        filtroTipo = [img for img in images if type in [tipo.lower() for tipo in img.types]]
+        filtroTipo = [] 
+        for img in images:
+            type_minus = []
+            for t in img.types:
+                type_minus.append(t.lower())
+            
+            if type in type_minus:
+                filtroTipo.append(img)
+
         favourite_list = []
         if request.user.is_authenticated:
             favourite_list = services.getAllFavourites(request)
-            favourite_list = [fav.name for fav in favourite_list]
+            fav_name = []
+            for fav in favourite_list:
+                fav_name.append(fav.name)
+            favourite_list = fav_name
         return render(request, 'home.html', { 'images': filtroTipo, 'favourite_list': favourite_list })
     else:
         return redirect('home')
